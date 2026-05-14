@@ -12,7 +12,7 @@ export const getAllStudentsService = async (page: number, limit: number) => {
   const { rows: students, count: totalCount } = await Student.findAndCountAll({
     limit,
     offset,
-    order: [["createdAt", "DESC"]],
+    order: [["student_id", "DESC"]],
   });
 
   return {
