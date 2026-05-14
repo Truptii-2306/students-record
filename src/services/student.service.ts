@@ -6,8 +6,19 @@ export const createStudentService = async (data: any) => {
   return await Student.create(data);
 };
 
-export const getAllStudentsService = async () => {
-  return await Student.findAll();
+export const getAllStudentsService = async (page: number, limit: number) => {
+  const offset = (page - 1) * limit;
+
+  const { rows: students, count: totalCount } = await Student.findAndCountAll({
+    limit,
+    offset,
+    order: [["createdAt", "DESC"]],
+  });
+
+  return {
+    students,
+    totalCount,
+  };
 };
 
 export const getStudentByIdService = async (id: string) => {

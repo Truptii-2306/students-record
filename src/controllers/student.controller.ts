@@ -34,10 +34,16 @@ export const getAllStudents = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const students = await getAllStudentsService();
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+
+    const { students, totalCount } = await getAllStudentsService(page, limit);
 
     res.status(200).json({
       success: true,
+      totalCount,
+      currentPage: page,
+      totalPages: Math.ceil(totalCount / limit),
       count: students.length,
       data: students,
     });

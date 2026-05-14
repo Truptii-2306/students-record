@@ -5,8 +5,10 @@ import db from "./models";
 import studentRoutes from "./routes/student.routes";
 import marksRoutes from "./routes/marks.routes";
 import subjectRoutes from "./routes/subject.routes";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
